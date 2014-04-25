@@ -36,11 +36,11 @@ public class Solution {
 		int countOfNextLevel = 0;
 		ArrayList<ArrayList<String>> resultList = new ArrayList<ArrayList<String>>();
 		
-		//HashSet<String> unVissitedSet = new HashSet<String>();
+		HashSet<String> unVissitedSet = new HashSet<String>();
 		Queue<TreeNode> queue = new LinkedList<TreeNode>();
-		//unVissitedSet.addAll(dict);
+		unVissitedSet.addAll(dict);
 		queue.offer(new TreeNode(start, null));
-
+		HashSet<String> tobeReMove = new HashSet<String>();
 		while (!queue.isEmpty()) {
 			//
 			TreeNode node = queue.poll();
@@ -50,20 +50,19 @@ public class Solution {
 			int m = 0;
 
 			HashSet<TreeNode> children = new HashSet<TreeNode>();
-			
 			for (int i = 0; i < string.length(); i++) {
 				char c[] = string.toCharArray();
 				for (char t = 'a'; t < 'z'; t++) {
 					c[i] = t;
 					String s = new String(c);
-					if (dict.contains(s)) {
+					if (unVissitedSet.contains(s)) {
 						if (s.equals(end)){
 							//找到了。
 							result = level + 1;
 							putReslut(resultList,node,s);
 						}
 						else {
-							//unVissitedSet.remove(s);
+							tobeReMove.add(s);
 							TreeNode newNode = new TreeNode(s, node);
 							children.add(newNode);
 							queue.add(newNode );
@@ -73,6 +72,7 @@ public class Solution {
 
 				}
 			}
+			
 			node.children = children;
 			countOfNextLevel += m;
 
@@ -81,6 +81,8 @@ public class Solution {
 				if(result == level)//说明在这层找到了
 					return resultList;
 				//进入下一层
+				unVissitedSet.removeAll(tobeReMove);
+				tobeReMove.clear();
 				countOfCuurentLevel = countOfNextLevel;
 				countOfNextLevel = 0;
 			}
