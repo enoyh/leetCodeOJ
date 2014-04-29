@@ -9,4 +9,11 @@ public class TreeNode {
 		val = x;
 		left = right = null;
 	}
+
+	@Override
+	public String toString() {
+		return val+"";
+	}
+	
+	
 }
