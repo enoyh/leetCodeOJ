@@ -5,8 +5,8 @@ import leetCode.Util.TreeNode;
 public class Solution {
 	
 	public static void main(String[] args) {
-		int inorder[] = {5};
-		int postorder[] = {5};
+		int inorder[] = {5,4,6,2,1,7,3};
+		int postorder[] = {5,6,4,2,7,3,1};
 		TreeNode root = new Solution().buildTree(inorder, postorder);
 		System.out.println(root);
 	}
